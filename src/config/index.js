@@ -1,0 +1,1 @@
+export const AMOUNT_OF_CARD_PAIRS = 4
