@@ -1,8 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from '../index';
+import * as actions from '../actions'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+describe('actions logic', () => {
+
+    const cards = [
+        {
+            matched: true,
+        },
+        {
+            matched: true,
+        }];
+
+    it('should say game is won', () => {
+        expect(actions.isGameWon(cards)).toBe(true)
+    });
+
+    it('should say game is not won yet', () => {
+
+        cards.push({
+            matched: false,
+        });
+
+        expect(actions.isGameWon(cards)).toBe(false)
+    });
+
 });

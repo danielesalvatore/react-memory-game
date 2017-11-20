@@ -24,3 +24,6 @@ export const getCardIsFlipping = (state) =>
 
 export const getVictory = (state) =>
     state.status.victory;
+
+export const getWaitingForPair = (state) =>
+    getCards(state).filter(c => !c.isFlipped).length % 2 !== 0;

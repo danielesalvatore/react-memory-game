@@ -1,0 +1,102 @@
+version: 2
+
+jobs:
+  unit_test:
+    docker:
+      - image: circleci/node:latest-browsers
+
+    working_directory: ~/repo
+
+    steps:
+
+      - checkout
+
+      # restore cached dependencies
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      - run: npm install
+
+      # cache dependencies
+      - save_cache:
+         key: dependency-cache-{{ checksum "package.json" }}
+         paths:
+           - node_modules
+
+      # run tests!
+      - run: npm test
+
+  e2e_test:
+
+    machine: true
+
+    working_directory: ~/repo
+
+    steps:
+
+      - checkout
+
+      # restore cached dependencies
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      - run: npm run build
+
+      # cache build folder for deployment step
+      - save_cache:
+         key:  react-memory-game-{{ .Environment.CIRCLE_SHA1 }}
+         paths:
+          - build
+
+       # build Docker image
+      - run: |
+          TAG=$CIRCLE_BUILD_NUM
+          USERNAME=react-memory-game
+          REPO=ui
+          docker build -t $USERNAME/$REPO:$TAG .
+          docker run -d -p 80:80 $USERNAME/$REPO:$TAG
+
+      # This should go into custom primary image, here's only for the sake of explanation
+      - run:
+          name: Install Cypress
+          command: |
+            set -x
+            npm install cypress -g
+
+      - run:
+          name: Running E2E tests
+          command: cypress run --env baseUrl=http://localhost
+
+  deployment_web:
+    docker:
+      - image: nbphuoc/node-8-aws-browser:latest
+
+    steps:
+
+      - restore_cache:
+          key: react-memory-game-{{ .Environment.CIRCLE_SHA1 }}
+
+      - deploy:
+          name: Deploy to S3 if tests pass and branch is Master
+          command:  aws s3 sync ./build s3://philipmorrisdev --delete --region eu-west-2 --acl public-read
+
+workflows:
+
+  version: 2
+  
+  test_and_deploy:
+
+    jobs:
+
+      - unit_test
+      
+      - e2e_test:
+          requires:
+            - unit_test
+
+      - deployment_web:
+          requires:
+            - e2e_test
+          filters:
+            branches:
+              only: master

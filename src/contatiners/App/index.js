@@ -1,13 +1,21 @@
 import React, {Component} from 'react';
-import {Grid} from 'react-bootstrap'
+import {Grid, Button} from 'react-bootstrap'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import Header from '../../components/Header'
 import Board from '../Board'
 import Loading from '../../components/Loading'
 import ErrorMessage from '../../components/ErrorMessage'
 import * as actions from './actions'
 import Card from '../Card'
-import {getCards, getErrorMessage, getIsFetching, getCheckingMatchingCards} from './selectors';
+import {
+    getCards,
+    getErrorMessage,
+    getIsFetching,
+    getCheckingMatchingCards,
+    getVictory,
+    getWaitingForPair
+} from './selectors';
 
 class App extends Component {
 
@@ -37,7 +45,7 @@ class App extends Component {
 
     render() {
 
-        const {cards, isFetching, errorMessage} = this.props;
+        const {cards, isFetching, errorMessage, victory, waitingForPair} = this.props;
 
         if (!!isFetching) {
             return <Loading/>
@@ -49,7 +57,9 @@ class App extends Component {
 
         return (
             <Grid>
+                <Button onClick={this.fetchCards.bind(this)}> Restart </Button>
                 <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>
+                <Header victory={victory} waitingForPair={waitingForPair}/>
             </Grid>
         );
     }
@@ -60,7 +70,10 @@ const mapStateToProps = (state) => {
         cards: getCards(state),
         isFetching: getIsFetching(state),
         errorMessage: getErrorMessage(state),
-        checkingMatchingCards: getCheckingMatchingCards(state)
+        checkingMatchingCards: getCheckingMatchingCards(state),
+        victory: getVictory(state),
+        waitingForPair: getWaitingForPair(state)
+
     }
 };
 

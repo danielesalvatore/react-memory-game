@@ -1,5 +1,5 @@
 import {FETCH_CARDS_SUCCESS, FETCH_CARDS_ERROR, FETCH_CARDS_REQUEST} from './constants';
-import {FLIP_CARD, MARK_AS_MATCHED} from './constants';
+import {FLIP_CARD, MARK_AS_MATCHED, GAME_VICTORY} from './constants';
 import {CHECK_MATCHING_CARDS_START, CHECK_MATCHING_CARDS_STOP} from './constants';
 import {CARD_FLIP_SPEED_IN_MS, RESET_UNMATCHED_CARDS_TIMEOUT} from '../../config'
 import * as api from '../../api';
@@ -60,7 +60,7 @@ const getFlippedCardsToMarkAsMatched = (cards) => {
     return toMark.concat.apply([], pairs);
 };
 
-const isGameWon = (cards) => {
+export const isGameWon = (cards) => {
     return cards.filter(c => c.matched).length === cards.length;
 };
 
@@ -73,7 +73,10 @@ const setGameVictory = (dispatch) => {
     window.setTimeout(() => {
         enableCardFlipping(dispatch);
 
-        alert("Winner")
+      dispatch({
+          type: GAME_VICTORY
+      })
+
     }, CARD_FLIP_SPEED_IN_MS) // wait that the card is completely flipped before to win
 };
 
