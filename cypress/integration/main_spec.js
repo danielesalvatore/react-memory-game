@@ -4,14 +4,13 @@ import {AMOUNT_OF_CARD_PAIRS, CARD_FLIP_SPEED_IN_MS} from '../../src/config'
 describe('Main page', () => {
 
     it('should display main page', () => {
-        cy.visit(UI_BASE_PATH)
+        cy.visit(UI_BASE_PATH);
 
         cy.url().should('eq', UI_BASE_PATH);
 
     });
 
     it('should render cards', () => {
-        cy.visit(UI_BASE_PATH);
 
         expect(cy.get(".react-card-flip")).not.to.be.undefined;
 
@@ -21,7 +20,6 @@ describe('Main page', () => {
     });
 
     it('should flip a card', () => {
-        cy.visit(UI_BASE_PATH);
 
         cy.get(".react-card-flip").first().find(".react-card-back").click();
 

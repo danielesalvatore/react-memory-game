@@ -65,7 +65,7 @@ jobs:
 
       - run:
           name: Running E2E tests
-          command: cypress run --env baseUrl=http://localhost
+          command: cypress run --env baseUrl=http://localhost/
 
   deployment_web:
     docker:
