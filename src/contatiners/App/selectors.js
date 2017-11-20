@@ -12,3 +12,15 @@ export const getCard = (state, id) =>
 
 export const getCards = (state) =>
     state.cards.list.ids && state.cards.list.ids.map((id) => getCard(state, id));
+
+export const getStatus = (state) =>
+    state.status;
+
+export const getCheckingMatchingCards = (state) =>
+    state.status.checkingMatchingCards;
+
+export const getCardIsFlipping = (state) =>
+    state.status.cardIsFlipping;
+
+export const getVictory = (state) =>
+    state.status.victory;

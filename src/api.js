@@ -8,7 +8,7 @@ const createCardBaseModel = () => {
         isFlipped: true
     }
 };
-const createCardsArray = (n = AMOUNT_OF_CARD_PAIRS) => {
+const createCardsArray = (n = (AMOUNT_OF_CARD_PAIRS * 2)) => {
     const baseModel = createCardBaseModel();
     const array = new Array(n).fill(baseModel)
         .map((x, i) => Object.assign({}, x, {id: "id-" + i}));

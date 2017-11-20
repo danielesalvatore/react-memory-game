@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
-import cards from '../contatiners/App/reducers'
+import {cards, status} from '../contatiners/App/reducers'
 
 export default combineReducers({
-    cards
+    cards,
+    status
 })

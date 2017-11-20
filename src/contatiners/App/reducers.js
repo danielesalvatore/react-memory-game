@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
 import {FETCH_CARDS_SUCCESS, FETCH_CARDS_ERROR, FETCH_CARDS_REQUEST} from './constants';
-import {FLIP_CARD, MARK_AS_MATCHED} from './constants';
+import {FLIP_CARD, MARK_AS_MATCHED, GAME_VICTORY} from './constants';
+import {CHECK_MATCHING_CARDS_START, CHECK_MATCHING_CARDS_STOP} from './constants';
+
 
 const byId = (state = {}, action) => {
     switch (action.type) {
@@ -72,7 +74,37 @@ const createList = () => {
     });
 };
 
-export default combineReducers({
+export const status = (state = {checkingMatchingCards: false, cardIsFlipping: false, victory: false}, action) => {
+
+    switch (action.type) {
+        case FETCH_CARDS_SUCCESS :
+            return {
+                ...state,
+                startAt: new Date().getTime(),
+                victory: false
+            };
+        case CHECK_MATCHING_CARDS_START :
+            return {
+                ...state,
+                checkingMatchingCards: true
+            };
+        case CHECK_MATCHING_CARDS_STOP :
+            return {
+                ...state,
+                checkingMatchingCards: false
+            };
+        case GAME_VICTORY :
+            return {
+                ...state,
+                victory: true
+            };
+        default:
+            return state;
+    }
+};
+
+export const cards = combineReducers({
     byId,
     list: createList(),
 });
+

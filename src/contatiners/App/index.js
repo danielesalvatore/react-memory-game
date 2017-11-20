@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import {Grid} from 'react-bootstrap'
-import Board from '../Board'
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getCards, getErrorMessage, getIsFetching} from './selectors';
-import Loading from '../Loading'
-import ErrorMessage from '../ErrorMessage'
+import Board from '../Board'
+import Loading from '../../components/Loading'
+import ErrorMessage from '../../components/ErrorMessage'
 import * as actions from './actions'
+import Card from '../Card'
+import {getCards, getErrorMessage, getIsFetching, getCheckingMatchingCards} from './selectors';
 
 class App extends Component {
 
     fetchCards() {
         const {fetchCards} = this.props;
 
-        if (typeof fetchCards === 'function') {
-            fetchCards();
-        }
+        fetchCards();
     }
 
     componentDidMount() {
@@ -25,9 +25,19 @@ class App extends Component {
         }
     }
 
+    onCardClick(id) {
+        const {flipCard, checkMatchingCards, checkingMatchingCards} = this.props;
+
+        if (!checkingMatchingCards) {
+            flipCard(id);
+            checkMatchingCards();
+        }
+
+    }
+
     render() {
 
-        const {cards, flipCard, isFetching, errorMessage, checkMatchingCards} = this.props;
+        const {cards, isFetching, errorMessage} = this.props;
 
         if (!!isFetching) {
             return <Loading/>
@@ -39,7 +49,7 @@ class App extends Component {
 
         return (
             <Grid>
-                <Board cards={cards} flipCard={flipCard} checkMatchingCards={checkMatchingCards}/>
+                <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>
             </Grid>
         );
     }
@@ -49,8 +59,22 @@ const mapStateToProps = (state) => {
     return {
         cards: getCards(state),
         isFetching: getIsFetching(state),
-        errorMessage: getErrorMessage(state)
+        errorMessage: getErrorMessage(state),
+        checkingMatchingCards: getCheckingMatchingCards(state)
     }
+};
+
+App.propTypes = {
+    fetchCards: PropTypes.func.isRequired,
+    checkingMatchingCards: PropTypes.bool.isRequired,
+    cards: PropTypes.arrayOf(PropTypes.shape({
+        matched: PropTypes.bool.isRequired,
+        isFlipped: PropTypes.bool.isRequired,
+        id: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+    })),
+    isFetching: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string,
 };
 
 export default connect(

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactCardFlip from 'react-card-flip'
 import {Image} from 'react-bootstrap'
 import cardBack from './images/back.jpg';
+import {CARD_FLIP_SPEED} from '../../config'
 import PropTypes from 'prop-types';
 
 const styles = {
@@ -16,11 +17,10 @@ const styles = {
 class Card extends Component {
 
     handleClick() {
-        const {model, flipCard, checkMatchingCards} = this.props;
+        const {model, onClick} = this.props;
 
         if (model.isFlipped) {
-            flipCard(model.id);
-            checkMatchingCards();
+            onClick(model.id);
         }
 
     }
@@ -29,7 +29,11 @@ class Card extends Component {
         const {model} = this.props;
 
         return (
-            <ReactCardFlip isFlipped={model.isFlipped}>
+            <ReactCardFlip
+                isFlipped={model.isFlipped}
+                flipSpeedBackToFront={CARD_FLIP_SPEED}
+                flipSpeedFrontToBack={CARD_FLIP_SPEED}>
+
                 <div key="front" onClick={this.handleClick.bind(this)} style={styles.card}>
                     <Image src={model.image}/>
                 </div>
@@ -38,13 +42,18 @@ class Card extends Component {
                     <Image src={cardBack}/>
                 </div>
             </ReactCardFlip>
-
         );
     }
 }
 
 Card.propTypes = {
-    flipCard: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    model: PropTypes.shape({
+        matched: PropTypes.bool.isRequired,
+        isFlipped: PropTypes.bool.isRequired,
+        id: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+    })
 };
 
 export default Card;
