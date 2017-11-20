@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
 import ReactCardFlip from 'react-card-flip'
-import {Image} from 'react-bootstrap'
-import cardBack from './images/back.jpg';
+import {Panel, Image} from 'react-bootstrap'
 import {CARD_FLIP_SPEED} from '../../config'
 import PropTypes from 'prop-types';
+import "./css/index.css"
 
-const styles = {
-    card: {
-        border: '1px solid #eeeeee',
-        borderRadius: '3px',
-        padding: '15px',
-        width: '250px'
-    }
-};
 
 class Card extends Component {
 
@@ -29,19 +21,23 @@ class Card extends Component {
         const {model} = this.props;
 
         return (
-            <ReactCardFlip
-                isFlipped={model.isFlipped}
-                flipSpeedBackToFront={CARD_FLIP_SPEED}
-                flipSpeedFrontToBack={CARD_FLIP_SPEED}>
 
-                <div key="front" onClick={this.handleClick.bind(this)} style={styles.card}>
-                    <Image src={model.image}/>
-                </div>
+            <div className="card-holder">
+                <ReactCardFlip
+                    isFlipped={model.isFlipped}
+                    flipSpeedBackToFront={CARD_FLIP_SPEED}
+                    flipSpeedFrontToBack={CARD_FLIP_SPEED}
+                >
 
-                <div key="back" onClick={this.handleClick.bind(this)} style={styles.card}>
-                    <Image src={cardBack}/>
-                </div>
-            </ReactCardFlip>
+                    <Panel key="front" onClick={this.handleClick.bind(this)} >
+                        <Image src={model.image} />
+                    </Panel>
+
+                    <Panel key="back" onClick={this.handleClick.bind(this)} />
+
+                </ReactCardFlip>
+            </div>
+
         );
     }
 }

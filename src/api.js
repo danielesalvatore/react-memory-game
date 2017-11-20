@@ -11,7 +11,7 @@ const createCardBaseModel = () => {
 const createCardsArray = (n = (AMOUNT_OF_CARD_PAIRS * 2)) => {
     const baseModel = createCardBaseModel();
     const array = new Array(n).fill(baseModel)
-        .map((x, i) => Object.assign({}, x, {id: "id-" + i}));
+        .map(x => Object.assign({}, x, {id: "id-" + Math.random()}));
 
     for (let i = 0; i < array.length; i += 2) {
         let image = faker.fake("{{image.avatar}}");
@@ -20,13 +20,11 @@ const createCardsArray = (n = (AMOUNT_OF_CARD_PAIRS * 2)) => {
     }
 
     return array;
-
 };
-const cards = createCardsArray();
 
 export const fetchCards = () => {
 
     return new Promise((resolve, reject) => {
-        resolve(shuffle(cards))
+        resolve(shuffle(createCardsArray()))
     });
 };

@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import {Grid, Button} from 'react-bootstrap'
+import {Grid, Row, Col} from 'react-bootstrap'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import Header from '../../components/Header'
+import Smile from '../../components/Smile'
 import Board from '../Board'
 import Loading from '../../components/Loading'
+import Footer from '../../components/Footer'
+import Toolbar from '../../components/Toolbar'
 import ErrorMessage from '../../components/ErrorMessage'
 import * as actions from './actions'
 import Card from '../Card'
@@ -14,7 +16,8 @@ import {
     getIsFetching,
     getCheckingMatchingCards,
     getVictory,
-    getWaitingForPair
+    getWaitingForPair,
+    getStatus
 } from './selectors';
 
 class App extends Component {
@@ -45,7 +48,7 @@ class App extends Component {
 
     render() {
 
-        const {cards, isFetching, errorMessage, victory, waitingForPair} = this.props;
+        const {cards, isFetching, errorMessage, victory, waitingForPair, status} = this.props;
 
         if (!!isFetching) {
             return <Loading/>
@@ -57,9 +60,24 @@ class App extends Component {
 
         return (
             <Grid>
-                <Button onClick={this.fetchCards.bind(this)}> Restart </Button>
-                <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>
-                <Header victory={victory} waitingForPair={waitingForPair}/>
+                <h1 className="text-center">Memory game</h1>
+                <hr/>
+                <Row>
+                    <Col xs={3}>
+
+                        <Smile victory={victory} waitingForPair={waitingForPair}/>
+
+                        <hr/>
+
+                        <Toolbar status={status} onRestart={this.fetchCards.bind(this)}/>
+
+                    </Col>
+                    <Col xs={9}>
+                        <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>
+                    </Col>
+                </Row>
+                <hr/>
+                <Footer/>
             </Grid>
         );
     }
@@ -72,7 +90,8 @@ const mapStateToProps = (state) => {
         errorMessage: getErrorMessage(state),
         checkingMatchingCards: getCheckingMatchingCards(state),
         victory: getVictory(state),
-        waitingForPair: getWaitingForPair(state)
+        waitingForPair: getWaitingForPair(state),
+        status: getStatus(state)
 
     }
 };

@@ -74,7 +74,7 @@ const createList = () => {
     });
 };
 
-export const status = (state = {checkingMatchingCards: false, cardIsFlipping: false, victory: false}, action) => {
+export const status = (state = {checkingMatchingCards: false, cardIsFlipping: false, victory: false, startAt: new Date().getTime()}, action) => {
 
     switch (action.type) {
         case FETCH_CARDS_SUCCESS :
