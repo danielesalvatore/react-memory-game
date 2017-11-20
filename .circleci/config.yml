@@ -5,8 +5,6 @@ jobs:
     docker:
       - image: circleci/node:latest-browsers
 
-    working_directory: ~/repo
-
     steps:
 
       - checkout
@@ -29,8 +27,6 @@ jobs:
   e2e_test:
 
     machine: true
-
-    working_directory: ~/repo
 
     steps:
 
