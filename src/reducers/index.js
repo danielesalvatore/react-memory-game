@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux'
-import {cards, status} from '../contatiners/App/reducers'
+import {reducer as formReducer} from 'redux-form'
+import {cards, status} from '../containers/App/reducers'
 
 export default combineReducers({
+    form: formReducer,
     cards,
     status
 })

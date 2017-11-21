@@ -28,3 +28,11 @@ export const fetchCards = () => {
         resolve(shuffle(createCardsArray()))
     });
 };
+
+export const submitVictory = ( payload ) => {
+
+    return new Promise((resolve, reject) => {
+        resolve({ok : "Fab"})
+    });
+};
+
