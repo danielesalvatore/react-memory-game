@@ -8,7 +8,7 @@ import {Form} from 'react-bootstrap'
 class VictoryForm extends Component {
 
     render() {
-        const {handleSubmit, onSubmit, pristine, submitting, invalid} = this.props;
+        const {handleSubmit, onSubmit, onCancel, pristine, submitting, invalid} = this.props;
         return (
 
             <Form inline={true} onSubmit={handleSubmit(onSubmit)}>
@@ -20,6 +20,7 @@ class VictoryForm extends Component {
                 />
 
                 <Button type="submit" disabled={pristine || submitting || invalid}>Submit</Button>
+                <Button type="button" onClick={onCancel}>Close</Button>
             </Form>);
     }
 }

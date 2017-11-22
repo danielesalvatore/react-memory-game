@@ -3,9 +3,9 @@ import Modal from 'react-modal';
 import {connect} from 'react-redux';
 import Form from './form';
 import moment from 'moment';
-import {submitVictory} from './actions'
+import {submitVictory, close} from './actions'
 import FlippingCard from '../../components/FlippingCard'
-import {Row, Col} from 'react-bootstrap'
+import {Row, Col, Button} from 'react-bootstrap'
 import './css/index.css'
 
 class MyModal extends Component {
@@ -19,31 +19,43 @@ class MyModal extends Component {
     }
 
     render() {
-        const {isOpen, status = {},} = this.props;
+        const {isOpen, close, status = {},} = this.props;
         const {startAt, finishAt} = status;
         const time = moment.duration(moment(finishAt).diff(moment(startAt))).asSeconds();
 
         return (
-
             <Modal
                 isOpen={isOpen}
                 contentLabel="Modal"
             >
                 <Row>
                     <Col xs={12} className="text-center">
-                        <h1>Congratulations!</h1>
+
+                        <h1>Congratulations!
+                            <Button
+                                type="button"
+                                className="close"
+                                aria-label="Close"
+                                onClick={close}
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </Button>
+                        </h1>
+
                         <p>You completed the game in {`${time}`} seconds.</p>
-                        <div className="card-holder center-block">
-                            <FlippingCard
-                                isFlipped={status.victorySubmitted}
-                                Front={<Form key="front" onSubmit={this.onSubmit.bind(this)}/>}
-                                Back={<div key="back">Ranking add button to close modal</div>}
-                            />
-                        </div>
+
+                        <FlippingCard
+                            className="card-holder center-block"
+                            isFlipped={status.victorySubmitted}
+                            Front={<Form key="front"
+                                         onSubmit={this.onSubmit.bind(this)}
+                                         onCancel={close}
+                            />}
+                            Back={<div key="back">Ranking add button to close modal</div>}
+                        />
                     </Col>
                 </Row>
             </Modal>
-
         );
     }
 }
@@ -54,7 +66,7 @@ const onSubmit = (payload) => (dispatch) => {
 
 MyModal = connect(
     undefined,
-    {onSubmit}
+    {onSubmit, close}
 )(MyModal);
 
 export default MyModal;

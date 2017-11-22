@@ -9,30 +9,31 @@ class Toolbar extends Component {
         this.state = {elapsed: 0};
     }
 
-    updateTimer() {
+    tick() {
+        const {status = {}, victory} = this.props;
+        const {startAt} = status;
+        const elapsed = Math.floor(moment(moment()).diff(startAt) / 1000);
 
-        const {status = {}} = this.props;
-        const {elapsed} = status;
-
-        clearTimeout(this.timer);
-
-        this.timer = setTimeout(() => {
-
-            this.setState({
-                elapsed: moment(elapsed).diff(moment())
-            })
-        }, 1000);
+        if (!victory) {
+            this.setState({elapsed})
+        }
 
     }
 
-    componentDidUpdate() {
-        //this.updateTimer();
+    startInterval() {
+        this.interval = setInterval(this.tick.bind(this), 1000);
+    }
+
+    stopInterval() {
+        clearInterval(this.interval);
     }
 
     componentDidMount() {
-        // if(this.refs.root) {
-        //     this.updateTimer();
-        // }
+        this.startInterval();
+    }
+
+    componentWillUnmount() {
+        this.stopInterval()
     }
 
     render() {

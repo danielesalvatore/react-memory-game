@@ -57,7 +57,6 @@ const createList = () => {
     const isFetching = (state = false, action) => {
         switch (action.type) {
             case FETCH_CARDS_REQUEST:
-
                 return true;
             case FETCH_CARDS_ERROR:
             case FETCH_CARDS_SUCCESS:

@@ -6,6 +6,7 @@ import * as api from '../../api';
 import {normalize} from 'normalizr';
 import {arrayOfCard} from '../../schemas/card'
 import {getCards} from "./selectors";
+import {open} from '../Modal/actions'
 
 const markCardAsMatched = (id, dispatch) => {
     dispatch({
@@ -57,7 +58,7 @@ const getFlippedCardsToMarkAsMatched = (cards) => {
     }
 
     // flatten array of array
-    return toMark.concat.apply([], pairs).filter( m => !m.matched);
+    return toMark.concat.apply([], pairs).filter(m => !m.matched);
 };
 
 export const isGameWon = (cards) => {
@@ -73,9 +74,11 @@ const setGameVictory = (dispatch) => {
     window.setTimeout(() => {
         enableCardFlipping(dispatch);
 
-      dispatch({
-          type: GAME_VICTORY
-      })
+        dispatch({
+            type: GAME_VICTORY
+        });
+
+        open(dispatch)
 
     }, CARD_FLIP_SPEED_IN_MS) // wait that the card is completely flipped before to win
 };

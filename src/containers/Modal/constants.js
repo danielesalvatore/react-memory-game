@@ -3,3 +3,6 @@ export const FORM_NAME = "victory-form";
 export const SUBMIT_VICTORY_REQUEST = "SUBMIT_VICTORY_REQUEST";
 export const SUBMIT_VICTORY_SUCCESS = "SUBMIT_VICTORY_SUCCESS";
 export const SUBMIT_VICTORY_ERROR = "SUBMIT_VICTORY_ERROR";
+
+export const MODAL_OPEN = "MODAL_OPEN";
+export const MODAL_CLOSE = "MODAL_CLOSE";

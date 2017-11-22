@@ -20,6 +20,7 @@ import {
     getWaitingForPair,
     getStatus
 } from './selectors';
+import {getIsOpen} from "../Modal/selectors";
 
 class App extends Component {
 
@@ -49,7 +50,7 @@ class App extends Component {
 
     render() {
 
-        const {cards, isFetching, errorMessage, victory, waitingForPair, status} = this.props;
+        const {cards, isFetching, errorMessage, victory, modalIsOpen, waitingForPair, status} = this.props;
 
         if (!!isFetching) {
             return <Loading/>
@@ -61,26 +62,33 @@ class App extends Component {
 
         return (
             <Grid>
+
                 <h1 className="text-center">Memory game</h1>
+
                 <hr/>
+
                 <Row>
+
                     <Col xs={3}>
 
                         <Smile victory={victory} waitingForPair={waitingForPair}/>
 
                         <hr/>
 
-                        <Toolbar status={status} onRestart={this.fetchCards.bind(this)}/>
+                        <Toolbar status={status} victory={victory} onRestart={this.fetchCards.bind(this)}/>
 
                     </Col>
+
                     <Col xs={9}>
                         <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>
                     </Col>
                 </Row>
+
                 <hr/>
+
                 <Footer/>
 
-                <Modal isOpen={victory} status={status}/>
+                <Modal isOpen={modalIsOpen} status={status}/>
 
             </Grid>
         );
@@ -95,8 +103,8 @@ const mapStateToProps = (state) => {
         checkingMatchingCards: getCheckingMatchingCards(state),
         victory: getVictory(state),
         waitingForPair: getWaitingForPair(state),
-        status: getStatus(state)
-
+        status: getStatus(state),
+        modalIsOpen: getIsOpen(state)
     }
 };
 

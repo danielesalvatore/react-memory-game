@@ -9,7 +9,7 @@ class Card extends Component {
     handleClick() {
         const {model, onClick} = this.props;
 
-        if (model.isFlipped) {
+        if (!!model.isFlipped) {
             onClick(model.id);
         }
 
@@ -19,16 +19,13 @@ class Card extends Component {
         const {model} = this.props;
 
         return (
-
-            <div className="card-holder">
-                <FlippingCard
-                    isFlipped={model.isFlipped}
-                    Front={<Panel key="front" onClick={this.handleClick.bind(this)}><Image src={model.image}/>
-                    </Panel>}
-                    Back={<Panel key="back" onClick={this.handleClick.bind(this)}/>}
-                />
-            </div>
-
+            <FlippingCard
+                className="card-holder"
+                isFlipped={model.isFlipped}
+                Front={<Panel key="front" onClick={this.handleClick.bind(this)}><Image src={model.image}/>
+                </Panel>}
+                Back={<Panel key="back" onClick={this.handleClick.bind(this)}/>}
+            />
         );
     }
 }
