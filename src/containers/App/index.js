@@ -4,6 +4,7 @@ import Modal from '../Modal'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Smile from '../../components/Smile'
+import Scores from '../Scores'
 import Board from '../Board'
 import Loading from '../../components/Loading'
 import Footer from '../../components/Footer'
@@ -21,6 +22,7 @@ import {
     getStatus
 } from './selectors';
 import {getIsOpen} from "../Modal/selectors";
+import {version} from '../../../package.json';
 
 class App extends Component {
 
@@ -63,7 +65,7 @@ class App extends Component {
         return (
             <Grid>
 
-                <h1 className="text-center">Memory game</h1>
+                <h1 className="text-center">Memory game v{version}</h1>
 
                 <hr/>
 
@@ -77,6 +79,10 @@ class App extends Component {
 
                         <Toolbar status={status} victory={victory} onRestart={this.fetchCards.bind(this)}/>
 
+                        <hr/>
+
+                        <Scores/>
+
                     </Col>
 
                     <Col xs={9}>
@@ -88,7 +94,7 @@ class App extends Component {
 
                 <Footer/>
 
-                <Modal isOpen={modalIsOpen} status={status}/>
+                <Modal isOpen={modalIsOpen} onReset={this.fetchCards.bind(this)} status={status}/>
 
             </Grid>
         );

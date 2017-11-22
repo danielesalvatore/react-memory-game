@@ -73,28 +73,29 @@ const createList = () => {
     });
 };
 
-export const status = (state = {
+const initialStatus = {
     checkingMatchingCards: false,
     cardIsFlipping: false,
+    matchedCardsAmount: 0,
     victory: false,
-    startAt: new Date().getTime()
-}, action) => {
+    startAt: new Date().getTime(),
+    moves: 0
+};
+
+export const status = (state = initialStatus, action) => {
 
     switch (action.type) {
         case FETCH_CARDS_SUCCESS :
-            return {
-                ...state,
-                startAt: new Date().getTime(),
-                finishAt: undefined,
-                totalCardsAmount: action.response.result.length,
-                matchedCardsAmount: 0,
-                victorySubmitted: false,
-                victory: false
-            };
+            return {...initialStatus, startAt: new Date().getTime()};
         case CHECK_MATCHING_CARDS_START :
             return {
                 ...state,
                 checkingMatchingCards: true
+            };
+        case FLIP_CARD :
+            return {
+                ...state,
+                moves: state.moves + 1
             };
         case CHECK_MATCHING_CARDS_STOP :
             return {

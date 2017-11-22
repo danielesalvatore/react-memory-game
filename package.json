@@ -1,11 +1,13 @@
 {
   "name": "react-memory-game",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
     "faker": "^4.1.0",
     "moment": "^2.19.2",
+    "node-uuid": "^1.4.8",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Modal from 'react-modal';
 import {connect} from 'react-redux';
 import Form from './form';
+import Scores from '../Scores'
 import moment from 'moment';
 import {submitVictory, close} from './actions'
 import FlippingCard from '../../components/FlippingCard'
@@ -10,18 +11,35 @@ import './css/index.css'
 
 class MyModal extends Component {
 
+    getMatchDuration() {
+
+        const {status} = this.props;
+        const {startAt, finishAt} = status;
+        return moment.duration(moment(finishAt).diff(moment(startAt))).asSeconds();
+
+
+    }
+
     onSubmit(payload) {
         const {status, onSubmit} = this.props;
-        const {startAt, finishAt} = status;
-        const time = moment.duration(moment(finishAt).diff(moment(startAt))).asSeconds();
+        const time = this.getMatchDuration();
 
-        onSubmit({...payload, time})
+        onSubmit({...payload, time, moves: status.moves});
+    }
+
+    onPlayAgain() {
+
+        const {onReset, close} = this.props;
+
+        onReset();
+        close();
+
     }
 
     render() {
         const {isOpen, close, status = {},} = this.props;
-        const {startAt, finishAt} = status;
-        const time = moment.duration(moment(finishAt).diff(moment(startAt))).asSeconds();
+        const {moves} = status;
+        const time = this.getMatchDuration();
 
         return (
             <Modal
@@ -42,7 +60,7 @@ class MyModal extends Component {
                             </Button>
                         </h1>
 
-                        <p>You completed the game in {`${time}`} seconds.</p>
+                        <p>You completed the game in {`${time}`} seconds with {`${moves}`} moves.</p>
 
                         <FlippingCard
                             className="card-holder center-block"
@@ -51,7 +69,21 @@ class MyModal extends Component {
                                          onSubmit={this.onSubmit.bind(this)}
                                          onCancel={close}
                             />}
-                            Back={<div key="back">Ranking add button to close modal</div>}
+                            Back={<div key="back">
+                                <Scores/>
+
+                                <Button
+                                    type="button"
+                                    className="close pull-left"
+                                    aria-label="Reset"
+                                    onClick={this.onPlayAgain.bind(this)}>Play again!</Button>
+
+                                <Button
+                                    type="button"
+                                    className="close"
+                                    aria-label="Close"
+                                    onClick={close}>Close</Button>
+                            </div>}
                         />
                     </Col>
                 </Row>

@@ -44,6 +44,7 @@ class Toolbar extends Component {
 
             <p><strong>Elapsed Time:</strong> {elapsed} </p>
             <p><strong>Matched cards:</strong> {status.matchedCardsAmount}</p>
+            <p><strong>Moves:</strong> {status.moves}</p>
 
             <Button onClick={onRestart} className="center-block">
                 <Glyphicon glyph=" glyphicon glyphicon-refresh"/>
