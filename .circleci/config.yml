@@ -37,7 +37,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
 
       # create .env file
-      - run: cat ${CONFIG} > .env
+      - run: echo ${CONFIG} > .env
       # read .env file
       - run: cat .env
 
