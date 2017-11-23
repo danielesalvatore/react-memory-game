@@ -36,6 +36,11 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
 
+      # create .env file
+      - run: cat ${CONFIG} > .env
+      # read .env file
+      - run: cat .env
+
       - run: npm run build
 
       # cache build folder for deployment step
