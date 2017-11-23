@@ -1,6 +1,6 @@
 {
   "name": "react-memory-game",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "dependencies": {
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
