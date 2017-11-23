@@ -1,5 +1,7 @@
 import GAEventTracker from "./GAEventTracker"
 import {FLIP_CARD, FETCH_CARDS_SUCCESS, GAME_VICTORY} from '../../containers/App/constants'
+import store from '../../store'
+import {getStatus} from "../../containers/App/selectors";
 
 function createAnalyticsMiddleware(extraArgument) {
 
@@ -28,10 +30,13 @@ function createAnalyticsMiddleware(extraArgument) {
                 });
                 break;
             case GAME_VICTORY :
+                const status = getStatus(store.getState());
+                const duration = action.finishAt - status.startAt;
+
                 EventTracker.timing({
                     category: 'match',
                     variable: 'victory',
-                    value: action.finishAt - action.startAt, // in milliseconds
+                    value: duration, // in milliseconds
                 });
                 break;
             default:

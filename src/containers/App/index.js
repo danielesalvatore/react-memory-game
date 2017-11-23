@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Row, Col} from 'react-bootstrap'
+import {Grid, Row, Col, Button} from 'react-bootstrap'
 import Modal from '../Modal'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -30,14 +30,6 @@ class App extends Component {
         const {fetchCards} = this.props;
 
         fetchCards();
-    }
-
-    componentDidMount() {
-        const {cards} = this.props;
-
-        if (!cards.length) {
-            this.fetchCards();
-        }
     }
 
     onCardClick(id) {
@@ -86,7 +78,10 @@ class App extends Component {
                     </Col>
 
                     <Col xs={9}>
-                        <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>
+                        {cards && <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>}
+
+                        {!cards && <Button onClick={this.fetchCards.bind(this)}> Start a match now!</Button>}
+
                     </Col>
                 </Row>
 

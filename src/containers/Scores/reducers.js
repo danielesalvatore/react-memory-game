@@ -17,12 +17,12 @@ const byId = (state = {}, action) => {
 };
 
 const createList = () => {
-    const ids = (state = [], action) => {
+    const ids = (state = null, action) => {
         switch (action.type) {
             case FETCH_SCORES_SUCCESS :
                 return action.response.result;
             case SUBMIT_VICTORY_SUCCESS:
-                return  [];
+                return  null;
             default:
                 return state;
         }

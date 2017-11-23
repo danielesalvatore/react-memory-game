@@ -22,7 +22,6 @@ const byId = (state = {}, action) => {
         case MARK_AS_MATCHED :
             const toMark = state[action.id];
             toMark.matched = true;
-
             return {
                 ...state,
                 [action.id]: toMark
@@ -33,7 +32,7 @@ const byId = (state = {}, action) => {
 };
 
 const createList = () => {
-    const ids = (state = [], action) => {
+    const ids = (state = null, action) => {
         switch (action.type) {
             case FETCH_CARDS_SUCCESS :
                 return action.response.result;
@@ -78,7 +77,6 @@ const initialStatus = {
     cardIsFlipping: false,
     matchedCardsAmount: 0,
     victory: false,
-    startAt: new Date().getTime(),
     moves: 0
 };
 
@@ -111,7 +109,7 @@ export const status = (state = initialStatus, action) => {
         case GAME_VICTORY :
             return {
                 ...state,
-                finishAt: new Date().getTime(),
+                finishAt: action.finishAt,
                 victory: true
             };
         case SUBMIT_VICTORY_SUCCESS :

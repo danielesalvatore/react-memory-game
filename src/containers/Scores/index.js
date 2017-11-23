@@ -14,26 +14,20 @@ import {
 
 class Scores extends Component {
 
-    fetchScores() {
-        const {fetchScores} = this.props;
+    fetchScoresIfNeeded() {
+        const {scores, fetchScores} = this.props;
 
-        fetchScores();
+        if (!scores) {
+            fetchScores();
+        }
     }
 
     componentDidMount() {
-        const {scores} = this.props;
-
-        if (!scores.length) {
-            this.fetchScores();
-        }
+        this.fetchScoresIfNeeded();
     }
 
     componentDidUpdate() {
-        const {scores} = this.props;
-
-        if (!scores.length) {
-            this.fetchScores();
-        }
+        this.fetchScoresIfNeeded();
     }
 
     renderTableRow(row, index) {
@@ -57,7 +51,7 @@ class Scores extends Component {
             return <ErrorMessage message={errorMessage}/>
         }
 
-        if (!scores.length) {
+        if (!scores || (scores && !scores.length)) {
             return <p>Be the first to play!</p>
         }
 
