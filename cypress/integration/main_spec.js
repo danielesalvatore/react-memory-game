@@ -14,6 +14,8 @@ describe('Main page', () => {
 
         expect(cy.get(".react-card-flip")).not.to.be.undefined;
 
+        Cypress.$('#start-btn').click();
+
         cy.get(".react-card-flip").then(cards => {
             expect(cards.length).to.be.equal(AMOUNT_OF_CARD_PAIRS * 2)
         })

@@ -29,6 +29,8 @@ class App extends Component {
     fetchCards() {
         const {fetchCards} = this.props;
 
+        console.log("CLick")
+
         fetchCards();
     }
 
@@ -80,7 +82,7 @@ class App extends Component {
                     <Col xs={9}>
                         {cards && <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>}
 
-                        {!cards && <Button onClick={this.fetchCards.bind(this)}> Start a match now!</Button>}
+                        {!cards && <Button id="start-btn" onClick={this.fetchCards.bind(this)}> Start a match now!</Button>}
 
                     </Col>
                 </Row>
