@@ -75,7 +75,8 @@ const setGameVictory = (dispatch) => {
         enableCardFlipping(dispatch);
 
         dispatch({
-            type: GAME_VICTORY
+            type: GAME_VICTORY,
+            finishAt: new Date().getTime()
         });
 
         open(dispatch)

@@ -14,7 +14,7 @@ class Toolbar extends Component {
         const {startAt} = status;
         const elapsed = Math.floor(moment(moment()).diff(startAt) / 1000);
 
-        if (!victory) {
+        if (startAt && !victory) {
             this.setState({elapsed})
         }
 
