@@ -29,8 +29,6 @@ class App extends Component {
     fetchCards() {
         const {fetchCards} = this.props;
 
-        console.log("CLick")
-
         fetchCards();
     }
 
