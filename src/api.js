@@ -32,10 +32,10 @@ export const fetchCards = () => {
 };
 
 export const submitVictory = (payload) => {
-    return axios.post("", {...payload, type: "score", id: Uuid.v4()})
+    return axios.post("/scores", {...payload, type: "score", scoreId: Uuid.v4()})
 };
 
 export const fetchScores = () => {
-    return axios.get("")
+    return axios.get("/scores")
 };
 
