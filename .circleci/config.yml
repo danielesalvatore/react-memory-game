@@ -52,8 +52,8 @@ jobs:
        # build Docker image
       - run: |
           TAG=$CIRCLE_BUILD_NUM
-          USERNAME=react-memory-game
-          REPO=ui
+          USERNAME=danielesalvatore
+          REPO=react-memory-game
           docker build -t $USERNAME/$REPO:$TAG .
           docker run -d -p 80:80 $USERNAME/$REPO:$TAG
 
