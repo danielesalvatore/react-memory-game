@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Glyphicon} from 'react-bootstrap'
+import {Row, Col, Button, Glyphicon} from 'react-bootstrap'
 import moment from 'moment'
 
 class Toolbar extends Component {
@@ -41,17 +41,20 @@ class Toolbar extends Component {
         const {elapsed} = this.state;
         const matchIsStarted = !!status.startAt;
 
-        return ( <div ref="root" className="center-block">
+        return ( <Row ref="root" className="center-block">
+            <Col xs={9}>
+                <p><strong>Elapsed Time:</strong> {elapsed} </p>
+                <p><strong>Matched cards:</strong> {status.matchedCardsAmount}</p>
+                <p><strong>Moves:</strong> {status.moves}</p>
 
-            <p><strong>Elapsed Time:</strong> {elapsed} </p>
-            <p><strong>Matched cards:</strong> {status.matchedCardsAmount}</p>
-            <p><strong>Moves:</strong> {status.moves}</p>
+            </Col>
+            <Col xs={3}>
+                {matchIsStarted && <Button onClick={onRestart} className="center-block">
+                    <Glyphicon glyph=" glyphicon glyphicon-refresh"/>
+                </Button>}
+            </Col>
 
-            {matchIsStarted && <Button onClick={onRestart} className="center-block">
-                Restart <Glyphicon glyph=" glyphicon glyphicon-refresh"/>
-            </Button>}
-
-        </div>);
+        </Row>);
     }
 }
 

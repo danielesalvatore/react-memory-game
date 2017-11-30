@@ -140,7 +140,6 @@ export const checkMatchingCards = () => (dispatch, getState) => {
     }
 
     // Still some card to pair here...
-
     const toFlipBack = getCardToFlipBack(cards);
 
     // Enable flipping if no card to flip back
