@@ -36,5 +36,4 @@ Board.propTypes = {
     Item: PropTypes.func.isRequired,
 };
 
-
 export default Board;

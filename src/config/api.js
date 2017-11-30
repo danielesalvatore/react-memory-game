@@ -20,6 +20,7 @@ export const setupInterceptors = () => {
 
     /**
      * Intercepts every request, before it goes out
+     * to add authentication token
      * @param  {[type]} config) {} [description]
      * @return {[type]}         [description]
      */

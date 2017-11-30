@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Loading = ({message}) =>
+const Loading = () =>
     ( <div>Loading...</div>);
 
 export default Loading;

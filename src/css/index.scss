@@ -1,3 +1,15 @@
 h1, p, span {
-  font-family: 'Amatic SC', cursive;
+  font-family: 'Architects Daughter', cursive;
+}
+
+.start-button-holder {
+  height: 550px;
+
+  .start-button {
+    position: absolute;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }

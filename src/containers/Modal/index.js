@@ -6,7 +6,9 @@ import Scores from '../Scores'
 import moment from 'moment';
 import {submitVictory, close} from './actions'
 import FlippingCard from '../../components/FlippingCard'
-import {Row, Col, Button} from 'react-bootstrap'
+import {Row, Col, Button} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+
 import './css/index.css'
 
 class MyModal extends Component {
@@ -16,8 +18,6 @@ class MyModal extends Component {
         const {status} = this.props;
         const {startAt, finishAt} = status;
         return moment.duration(moment(finishAt).diff(moment(startAt))).asSeconds();
-
-
     }
 
     onSubmit(payload) {
@@ -60,7 +60,7 @@ class MyModal extends Component {
                             </Button>
                         </h1>
 
-                        <p>You completed the game in {`${time}`} seconds with {`${moves}`} moves.</p>
+                        <p>You completed the game in {`${time}`} seconds and {`${moves}`} moves.</p>
 
                         <FlippingCard
                             className="card-holder center-block"
@@ -100,5 +100,17 @@ MyModal = connect(
     undefined,
     {onSubmit, close}
 )(MyModal);
+
+MyModal.propTypes = {
+    close: PropTypes.func,
+    isOpen: PropTypes.bool.isRequired,
+    status: PropTypes.shape({
+        checkingMatchingCards: PropTypes.bool.isRequired,
+        cardIsFlipping: PropTypes.bool.isRequired,
+        matchedCardsAmount: PropTypes.number.isRequired,
+        victory: PropTypes.bool.isRequired,
+        moves: PropTypes.number.isRequired,
+    })
+};
 
 export default MyModal;

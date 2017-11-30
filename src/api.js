@@ -1,7 +1,6 @@
 import {shuffle} from './utils'
 import {AMOUNT_OF_CARD_PAIRS} from './config'
 import faker from 'faker'
-import Uuid from 'node-uuid'
 import axios from './config/api'
 
 const createCardBaseModel = () => {
@@ -32,7 +31,7 @@ export const fetchCards = () => {
 };
 
 export const submitVictory = (payload) => {
-    return axios.post("/scores", {...payload, type: "score", scoreId: Uuid.v4()})
+    return axios.post("/scores", {...payload, type: "score"})
 };
 
 export const fetchScores = () => {
