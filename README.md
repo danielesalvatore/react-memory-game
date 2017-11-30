@@ -1,5 +1,9 @@
 # React Memory Game
 
+
+[![CircleCI](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser.svg)](https://circleci.com/gh/danielesalvatore/react-memory-game)
+[![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/danielesalvatore/react-memory-game)
+
 *Looking for a AWS-based serverless backend for this game? [Here you go!](https://github.com/danielesalvatore/serverless-memory-game)*
 
 ## Features
