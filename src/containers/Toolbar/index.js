@@ -39,6 +39,7 @@ class Toolbar extends Component {
     render() {
         const {onRestart, status} = this.props;
         const {elapsed} = this.state;
+        const matchIsStarted = !!status.startAt;
 
         return ( <div ref="root" className="center-block">
 
@@ -46,9 +47,9 @@ class Toolbar extends Component {
             <p><strong>Matched cards:</strong> {status.matchedCardsAmount}</p>
             <p><strong>Moves:</strong> {status.moves}</p>
 
-            <Button onClick={onRestart} className="center-block">
-                <Glyphicon glyph=" glyphicon glyphicon-refresh"/>
-            </Button>
+            {matchIsStarted && <Button onClick={onRestart} className="center-block">
+                Restart <Glyphicon glyph=" glyphicon glyphicon-refresh"/>
+            </Button>}
 
         </div>);
     }

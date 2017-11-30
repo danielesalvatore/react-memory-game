@@ -8,7 +8,7 @@ import Scores from '../Scores'
 import Board from '../Board'
 import Loading from '../../components/Loading'
 import Footer from '../../components/Footer'
-import Toolbar from '../../components/Toolbar'
+import Toolbar from '../Toolbar'
 import ErrorMessage from '../../components/ErrorMessage'
 import * as actions from './actions'
 import Card from '../Card'
@@ -45,6 +45,7 @@ class App extends Component {
     render() {
 
         const {cards, isFetching, errorMessage, victory, modalIsOpen, waitingForPair, status} = this.props;
+        const matchIsStarted = !!status.startAt;
 
         if (!!isFetching) {
             return <Loading/>
@@ -65,7 +66,7 @@ class App extends Component {
 
                     <Col xs={3}>
 
-                        <Smile victory={victory} waitingForPair={waitingForPair}/>
+                        <Smile victory={victory} waitingForPair={waitingForPair} matchIsStarted={matchIsStarted}/>
 
                         <hr/>
 
@@ -80,7 +81,15 @@ class App extends Component {
                     <Col xs={9}>
                         {cards && <Board items={cards} Item={Card} onItemClick={this.onCardClick.bind(this)}/>}
 
-                        {!cards && <Button id="start-btn" onClick={this.fetchCards.bind(this)}> Start a match now!</Button>}
+                        {!cards && <div className="well start-button-holder">
+                            <Button id="start-btn"
+                                    bsSize="large"
+                                    bsStyle="danger"
+                                    className="center-block start-button"
+                                    onClick={this.fetchCards.bind(this)}
+                            >
+                                Start your match here!</Button>
+                        </div>}
 
                     </Col>
                 </Row>

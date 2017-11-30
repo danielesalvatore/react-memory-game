@@ -1,4 +1,4 @@
-import GAEventTracker from "./GAEventTracker"
+import GAEventTracker from "./googleAnalytics/GAEventTracker"
 import {FLIP_CARD, FETCH_CARDS_SUCCESS, GAME_VICTORY} from '../../containers/App/constants'
 import store from '../../store'
 import {getStatus} from "../../containers/App/selectors";

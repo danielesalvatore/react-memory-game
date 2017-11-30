@@ -38,8 +38,6 @@ jobs:
 
       # create .env file
       - run: echo -e ${CONFIG} > .env
-      # read .env file
-      - run: cat .env
 
       - run: npm run build
 

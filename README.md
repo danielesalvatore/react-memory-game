@@ -1,8 +1,18 @@
-# Memory Game
+# React Memory Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+*Looking for a AWS-based serverless backend for this game? [Here you go!](https://github.com/danielesalvatore/serverless-memory-game)*
 
-## Available Scripts
+## Features
+
+- This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app)
+- Unit test using [Jest](https://facebook.github.io/jest/)
+- E2E test using [Cypress.io](https://www.cypress.io/)
+- Continuous integration and deployment using [CircleCI](https://circleci.com/) on [Amazon Web Services S3](https://aws.amazon.com/s3/)
+- Google Analytics as Redux middleware
+- PropTypes checks
+- Do not include hard-coded configuration using environmental variables
+
+## Available scripts
 
 In the project directory, you can run:
 
@@ -32,7 +42,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-See the section about [deployment](#deployment) for more information.
 
 ### `npm run eject`
 

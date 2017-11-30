@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Table} from 'react-bootstrap'
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Loading from '../../components/Loading'
 import ErrorMessage from '../../components/ErrorMessage'
@@ -15,9 +15,9 @@ import {
 class Scores extends Component {
 
     fetchScoresIfNeeded() {
-        const {scores, fetchScores} = this.props;
+        const {scores, fetchScores, errorMessage} = this.props;
 
-        if (!scores) {
+        if (!scores && !errorMessage) {
             fetchScores();
         }
     }
@@ -48,7 +48,9 @@ class Scores extends Component {
         }
 
         if (!!errorMessage) {
-            return <ErrorMessage message={errorMessage}/>
+            return <div>
+                <ErrorMessage message={errorMessage}/>
+            </div>
         }
 
         if (!scores || (scores && !scores.length)) {
@@ -66,7 +68,6 @@ class Scores extends Component {
                 </tr>
                 </thead>
                 <tbody>
-
                 {scores.map(this.renderTableRow)}
                 </tbody>
             </Table>
@@ -82,18 +83,11 @@ const mapStateToProps = (state) => {
     }
 };
 
-// Scores.propTypes = {
-//     fetchScores: PropTypes.func.isRequired,
-//     checkingMatchingscores: PropTypes.bool.isRequired,
-//     scores: PropTypes.arrayOf(PropTypes.shape({
-//         matched: PropTypes.bool.isRequired,
-//         isFlipped: PropTypes.bool.isRequired,
-//         id: PropTypes.string.isRequired,
-//         image: PropTypes.string.isRequired,
-//     })),
-//     isFetching: PropTypes.bool.isRequired,
-//     errorMessage: PropTypes.string,
-// };
+Scores.propTypes = {
+    scores: PropTypes.array,
+    isFetching: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string,
+};
 
 export default connect(
     mapStateToProps,
